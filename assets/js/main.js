@@ -1,4 +1,6 @@
 // ===== PART 1 START: MAIN.JS =====
+const BASE_PATH = "/thebluedoorgroups";
+
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
   if (!element) return;
@@ -9,8 +11,8 @@ async function loadComponent(id, file) {
 }
 
 Promise.all([
-  loadComponent("site-nav", "components/nav.html"),
-  loadComponent("site-footer", "components/footer.html")
+  loadComponent("site-nav", `${BASE_PATH}/components/nav.html`),
+  loadComponent("site-footer", `${BASE_PATH}/components/footer.html`)
 ]).then(() => {
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".site-nav");
