@@ -1,5 +1,6 @@
 // ===== MAIN.JS START =====
-const BASE_PATH = "/thebluedoorgroups";
+const IS_GITHUB_PAGES = window.location.hostname.endsWith("github.io");
+const BASE_PATH = IS_GITHUB_PAGES ? "/thebluedoorgroups" : "";
 
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
@@ -15,7 +16,17 @@ function normalizeRoute(pathname) {
   return route.endsWith("/") ? route : `${route}/`;
 }
 
+function rewriteInternalLinks() {
+  if (IS_GITHUB_PAGES) return;
+
+  document.querySelectorAll('a[href^="/thebluedoorgroups/"]').forEach((link) => {
+    link.setAttribute("href", link.getAttribute("href").replace("/thebluedoorgroups", ""));
+  });
+}
+
 function initializeNavigation() {
+  rewriteInternalLinks();
+
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".site-nav");
   const currentRoute = normalizeRoute(window.location.pathname);
