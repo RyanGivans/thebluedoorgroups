@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | The Blue Door Group</title>
   <meta name="description" content="Contact The Blue Door Group to discuss development opportunities, rental properties, strategic partnerships, and regional real estate opportunities." />
-  <link rel="stylesheet" href="/thebluedoorgroups/assets/css/styles.css" />
-  <link rel="stylesheet" href="/thebluedoorgroups/assets/css/pages.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/pages.css" />
 </head>
 <body>
   <div id="site-nav"></div>
@@ -39,22 +39,10 @@
           </div>
 
           <form class="contact-form" id="contactForm">
-            <div>
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" required />
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" />
-            </div>
-            <div>
-              <label for="company">Company</label>
-              <input id="company" name="company" type="text" />
-            </div>
+            <div><label for="name">Name</label><input id="name" name="name" type="text" required /></div>
+            <div><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
+            <div><label for="phone">Phone</label><input id="phone" name="phone" type="tel" /></div>
+            <div><label for="company">Company</label><input id="company" name="company" type="text" /></div>
             <div class="full">
               <label for="interest">I am interested in</label>
               <select id="interest" name="interest">
@@ -64,13 +52,8 @@
                 <option>General Inquiry</option>
               </select>
             </div>
-            <div class="full">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" required></textarea>
-            </div>
-            <div class="full">
-              <button class="btn btn-primary" type="submit">Prepare Email</button>
-            </div>
+            <div class="full"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
+            <div class="full"><button class="btn btn-primary" type="submit">Prepare Email</button></div>
           </form>
         </div>
       </div>
@@ -78,7 +61,7 @@
   </main>
   <div id="site-footer"></div>
 
-  <script src="/thebluedoorgroups/assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
   <script>
     document.getElementById('contactForm').addEventListener('submit', function (event) {
       event.preventDefault();
