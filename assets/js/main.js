@@ -17,10 +17,17 @@ function normalizeRoute(pathname) {
 }
 
 function rewriteInternalLinks() {
-  if (IS_GITHUB_PAGES) return;
+  document.querySelectorAll('a[href^="/"]').forEach((link) => {
+    const href = link.getAttribute("href");
+    if (!href) return;
 
-  document.querySelectorAll('a[href^="/thebluedoorgroups/"]').forEach((link) => {
-    link.setAttribute("href", link.getAttribute("href").replace("/thebluedoorgroups", ""));
+    if (IS_GITHUB_PAGES) {
+      if (!href.startsWith(`${BASE_PATH}/`) && href !== BASE_PATH) {
+        link.setAttribute("href", `${BASE_PATH}${href}`);
+      }
+    } else if (href.startsWith("/thebluedoorgroups/")) {
+      link.setAttribute("href", href.replace("/thebluedoorgroups", ""));
+    }
   });
 }
 
