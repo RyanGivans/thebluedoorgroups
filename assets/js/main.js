@@ -1,12 +1,18 @@
 // ===== MAIN.JS START =====
 const IS_GITHUB_PAGES = window.location.hostname.endsWith("github.io");
+const PREVIEW_BASE = "https://ryangivans.github.io/thebluedoorgroups";
 const BASE_PATH = IS_GITHUB_PAGES ? "/thebluedoorgroups" : "";
+const COMPONENT_VERSION = "20260610-4";
 
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
   if (!element) return;
 
-  const response = await fetch(file);
+  const separator = file.includes("?") ? "&" : "?";
+  const response = await fetch(`${file}${separator}v=${COMPONENT_VERSION}`, {
+    cache: "no-store"
+  });
+
   if (!response.ok) throw new Error(`Unable to load ${file}`);
   element.innerHTML = await response.text();
 }
@@ -16,18 +22,19 @@ function normalizeRoute(pathname) {
   return route.endsWith("/") ? route : `${route}/`;
 }
 
-function rewriteInternalLinks() {
-  document.querySelectorAll('a[href^="/"]').forEach((link) => {
-    const href = link.getAttribute("href");
-    if (!href) return;
+function buildHref(route) {
+  if (!route || route === "/") return IS_GITHUB_PAGES ? `${PREVIEW_BASE}/` : "/";
+  return IS_GITHUB_PAGES ? `${PREVIEW_BASE}${route}` : route;
+}
 
-    if (IS_GITHUB_PAGES) {
-      if (!href.startsWith(`${BASE_PATH}/`) && href !== BASE_PATH) {
-        link.setAttribute("href", `${BASE_PATH}${href}`);
-      }
-    } else if (href.startsWith("/thebluedoorgroups/")) {
-      link.setAttribute("href", href.replace("/thebluedoorgroups", ""));
-    }
+function rewriteInternalLinks() {
+  document.querySelectorAll("a[data-route]").forEach((link) => {
+    link.setAttribute("href", buildHref(link.dataset.route));
+  });
+
+  document.querySelectorAll('a[href^="/thebluedoorgroups/"]').forEach((link) => {
+    const relativeRoute = link.getAttribute("href").replace("/thebluedoorgroups", "");
+    link.setAttribute("href", buildHref(relativeRoute));
   });
 }
 
