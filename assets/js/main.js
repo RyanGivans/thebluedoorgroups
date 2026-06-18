@@ -2,7 +2,25 @@
 const IS_GITHUB_PAGES = window.location.hostname.endsWith("github.io");
 const PREVIEW_BASE = "https://ryangivans.github.io/thebluedoorgroups";
 const BASE_PATH = IS_GITHUB_PAGES ? "/thebluedoorgroups" : "";
-const COMPONENT_VERSION = "20260610-4";
+const COMPONENT_VERSION = "20260610-5";
+const GA_MEASUREMENT_ID = "G-MC6YM3ZWJJ";
+
+function loadGoogleAnalytics() {
+  if (!GA_MEASUREMENT_ID) return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_MEASUREMENT_ID);
+}
 
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
@@ -63,6 +81,8 @@ function initializeNavigation() {
     });
   });
 }
+
+loadGoogleAnalytics();
 
 Promise.all([
   loadComponent("site-nav", `${BASE_PATH}/components/nav.html`),
